@@ -115,13 +115,23 @@ class SubMessage(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string).
         '''
+        self.match_dict = {}
+        for self.x in range(len(VOWELS_LOWER)):
+            self.match_dict[VOWELS_LOWER[self.x]] = vowels_permutation[self.x]
+        for self.y in range(len(VOWELS_UPPER)):
+            self.match_dict[VOWELS_UPPER[self.y]] = vowels_permutation[self.y].upper()
+            
+           
         self.transpose_dict = {}
-        self.vowels  = vowels_permutation + vowels_permutation.upper()
+       
         
         for self.i in string.ascii.letters:
             if i not in VOWELS_UPPER or VOWELS_LOWER:
                 self.transpose_dict[self.i] = self.i
             else:
+                self.transpose_dict[self.i] = self.match_dict[self.i]
+         
+        return self.transpose_dict
                 
                 
                 
@@ -134,7 +144,7 @@ class SubMessage(object):
         on the dictionary
         '''
         
-        pass #delete this line and replace with your code here
+        self.to_be_encrypted_message = SubMessage.get_message_text()
         
 class EncryptedSubMessage(SubMessage):
     def __init__(self, text):
