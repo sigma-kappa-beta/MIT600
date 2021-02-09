@@ -143,8 +143,16 @@ class SubMessage(object):
         Returns: an encrypted version of the message text, based 
         on the dictionary
         '''
-        
-        self.to_be_encrypted_message = SubMessage.get_message_text()
+        self.encypted_message_list = []
+        self.to_be_encrypted_message = get_message_text()
+        for self.i in self.to_be_encrypted_message:
+            if self.i in string.ascii.letters:
+                self.encrypted_message_list = self.encrypted_message_list + self.transpose_dict[self.i]
+            else:
+                self.encrypted_message_list = self.encrypted_message_list + self.i
+        encrypted_message = ' '.join([str(elem) for elem in encrypted_message_list]) 
+        retrun encrypted_message
+            
         
 class EncryptedSubMessage(SubMessage):
     def __init__(self, text):
