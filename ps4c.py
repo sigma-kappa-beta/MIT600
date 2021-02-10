@@ -144,14 +144,14 @@ class SubMessage(object):
         on the dictionary
         '''
         self.encypted_message_list = []
-        self.to_be_encrypted_message = get_message_text()
+        self.to_be_encrypted_message = self.get_message_text()
         for self.i in self.to_be_encrypted_message:
             if self.i in string.ascii.letters:
                 self.encrypted_message_list = self.encrypted_message_list + self.transpose_dict[self.i]
             else:
                 self.encrypted_message_list = self.encrypted_message_list + self.i
-        encrypted_message = ' '.join([str(elem) for elem in encrypted_message_list]) 
-        retrun encrypted_message
+        self.encrypted_message = ' '.join([str(elem) for elem in self.encrypted_message_list]) 
+        retrun self.encrypted_message
             
         
 class EncryptedSubMessage(SubMessage):
@@ -186,8 +186,26 @@ class EncryptedSubMessage(SubMessage):
         
         Hint: use your function from Part 4A
         '''
-        pass #delete this line and replace with your code here
-    
+        self.permutation_list = get_permutations(VOWELS_LOWER)
+       
+        for self.index in range(len(self.permutation_list)):
+            self.dict = self.build_transpose_dict(self.permutation_list[self.index])
+            self.to_be_decrypted = self.apply_transpose(self.dict)
+            self.checklist = str.split(self.to_be_decrypted)
+            for self.l_index in self.checklist:
+                self.wordn = 0
+                if is_word(word_set, self.l_index) == True:
+                    self.wordn +=1
+                else:
+                    continue
+            self.prelim_max = self.wordn
+            if self.prelim_max > self.final_max:
+                self.final_max = self.prelim_max
+                self.decrypted_message = self.to_be_decrypted
+                self.max_index = self.index
+            else:
+                continue
+        return (self.max_index, self.decrypted_message)  
 
 if __name__ == '__main__':
 
